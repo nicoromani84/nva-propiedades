@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NVA Propiedades</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Lato:wght@300;400;700&display=swap">
+    <style>
+        :root {
+            --primary-dark: #0A1929;
+            --accent-gold: #D4AF37;
+            --text-dark: #2C2C2C;
+            --text-light: #FFFFFF;
+            --bg-light: #F9F7F4;
+            --bg-neutral: #FAFAF8;
+            --border-color: #E8E6E1;
+            --text-muted: #6B6B6B;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --primary-dark: #0F2847;
+                --text-dark: #F0EDE8;
+                --bg-light: #0F1419;
+                --bg-neutral: #1A1E26;
+                --border-color: #2A2A2A;
+                --text-muted: #A0A0A0;
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --primary-dark: #0F2847;
+            --text-dark: #F0EDE8;
+            --bg-light: #0F1419;
+            --bg-neutral: #1A1E26;
+            --border-color: #2A2A2A;
+            --text-muted: #A0A0A0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text-dark);
+            background: var(--bg-light);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            text-wrap: balance;
+            line-height: 1.2;
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.5rem; }
+        h3 { font-size: 1.5rem; }
+
+        /* Header */
+        header {
+            background: var(--text-light);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--accent-gold));
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 400;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+
+        .cta-button {
+            background: var(--primary-dark);
+            color: var(--text-light);
+            padding: 0.75rem 1.75rem;
+            border: none;
+            border-radius: 3px;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--bg-neutral);
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .hero-accent {
+            display: inline-block;
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        /* Section Layout */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .section-accent-bar {
+            width: 60px;
+            height: 3px;
+            background: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--text-light);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--accent-gold));
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent-gold);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.1);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Properties Section */
+        .properties {
+            background: var(--bg-neutral);
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .property-card {
+            background: var(--text-light);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+
+        .property-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .property-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--accent-gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .property-info {
+            padding: 1.5rem;
+        }
+
+        .property-info h3 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .property-type {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+            padding: 0.25rem 0.75rem;
+            border-radius: 2px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .property-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--text-light);
+        }
+
+        .contact-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.3px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 0.875rem;
+            border: 1px solid var(--border-color);
+            border-radius: 3px;
+            font-family: 'Lato', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            background: var(--bg-light);
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            background: var(--text-light);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-dark);
+            color: var(--text-light);
+            border: none;
+            border-radius: 3px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .form-submit:hover {
+            background: var(--accent-gold);
+            color: var(--primary-dark);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: var(--text-light);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+        }
+
+        .footer-section p, .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            padding-top: 2rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.2rem; }
+
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+            }
+
+            nav a {
+                display: block;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-image {
+                height: 300px;
+                order: -1;
+            }
+
+            section {
+                padding: 3rem 1.5rem;
+            }
+
+            .hero {
+                padding: 4rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">🏠</div>
+                <div>NVA</div>
+            </a>
+            <nav>
+                <a href="#inicio">Inicio</a>
+                <a href="#sobre">Sobre Nosotros</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#propiedades">Propiedades</a>
+                <a href="#contacto" class="cta-button">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-container">
+            <h1>NVA <span class="hero-accent">Propiedades</span></h1>
+            <p class="hero-subtitle">
+                Acompañamos tus decisiones, <span class="hero-accent">creamos oportunidades</span>
+            </p>
+            <a href="#contacto" class="cta-button">Consulta Gratuita</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="sobre">
+        <div class="section-accent-bar"></div>
+        <h2>Sobre Nosotros</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>
+                    NVA Propiedades es una inmobiliaria ubicada en Recoleta, Ciudad de Buenos Aires. Brindamos asesoramiento profesional y personalizado para la compra, venta, alquiler y tasación de propiedades residenciales y comerciales en CABA y alrededores.
+                </p>
+                <p>
+                    Entendemos que detrás de cada operación inmobiliaria hay proyectos y decisiones importantes. Por eso trabajamos con cercanía, transparencia y compromiso, acompañando a nuestros clientes durante todo el proceso.
+                </p>
+                <p>
+                    Ofrecemos publicación y difusión de propiedades, análisis de mercado, coordinación de visitas y asistencia integral hasta el cierre de la operación.
+                </p>
+            </div>
+            <div class="about-image">
+                🏗️
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="servicios">
+        <div class="section-accent-bar"></div>
+        <h2>Nuestros Servicios</h2>
+        <p class="section-subtitle">Soluciones inmobiliarias completas adaptadas a tus necesidades</p>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🏢</div>
+                <h3>Compra y Venta</h3>
+                <p>Asesoramiento experto en la búsqueda, evaluación y cierre de operaciones de compra y venta de propiedades.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🔑</div>
+                <h3>Alquiler</h3>
+                <p>Gestión integral del alquiler, desde la búsqueda de inquilinos hasta la administración del inmueble.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Tasación</h3>
+                <p>Análisis profesional del valor de mercado de tu propiedad para tomar decisiones informadas.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🔍</div>
+                <h3>Análisis de Mercado</h3>
+                <p>Investigación detallada de tendencias y oportunidades en el mercado inmobiliario de CABA.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📸</div>
+                <h3>Difusión y Marketing</h3>
+                <p>Estrategias de publicación en múltiples plataformas para maximizar visibilidad de tu propiedad.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">✓</div>
+                <h3>Asistencia Integral</h3>
+                <p>Acompañamiento completo desde el primer contacto hasta el cierre de la operación inmobiliaria.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Properties Section -->
+    <section class="properties" id="propiedades">
+        <div class="section-accent-bar"></div>
+        <h2>Propiedades Destacadas</h2>
+        <p class="section-subtitle">Selección de las mejores oportunidades disponibles</p>
+
+        <div class="properties-grid">
+            <div class="property-card">
+                <div class="property-image">🏠</div>
+                <div class="property-info">
+                    <span class="property-type">VENTA</span>
+                    <h3>Departamento en Recoleta</h3>
+                    <p class="property-desc">3 ambientes, balcón con vista, a cuadras de La Pampa. Zona privilegiada con acceso a comercios y transporte.</p>
+                </div>
+            </div>
+            <div class="property-card">
+                <div class="property-image">🏘️</div>
+                <div class="property-info">
+                    <span class="property-type">ALQUILER</span>
+                    <h3>Casa en San Telmo</h3>
+                    <p class="property-desc">4 dormitorios, patio, garaje. Ubicación histórica con ambiente bohemio y acceso a mercados populares.</p>
+                </div>
+            </div>
+            <div class="property-card">
+                <div class="property-image">🏢</div>
+                <div class="property-info">
+                    <span class="property-type">VENTA</span>
+                    <h3>Local Comercial en Barrio Norte</h3>
+                    <p class="property-desc">Esquina de alto tránsito, 150m². Ideal para retail, oficina o servicios con gran potencial.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contacto">
+        <div class="section-accent-bar"></div>
+        <h2>Contáctanos</h2>
+        <p class="section-subtitle">Iniciemos juntos tu operación inmobiliaria</p>
+
+        <div class="contact-container">
+            <form>
+                <div class="form-group">
+                    <label for="nombre">Nombre Completo</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Teléfono</label>
+                    <input type="tel" id="telefono" name="telefono">
+                </div>
+                <div class="form-group">
+                    <label for="tipo">¿Qué te interesa?</label>
+                    <input type="text" id="tipo" name="tipo" placeholder="Compra, Venta, Alquiler, Tasación...">
+                </div>
+                <div class="form-group">
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" required></textarea>
+                </div>
+                <button type="submit" class="form-submit">Enviar Consulta</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>NVA Propiedades</h4>
+                <p>Recoleta, Ciudad de Buenos Aires</p>
+                <p>Acompañamos tus decisiones, creamos oportunidades.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Servicios</h4>
+                <a href="#servicios">Compra y Venta</a>
+                <a href="#servicios">Alquiler</a>
+                <a href="#servicios">Tasación</a>
+                <a href="#servicios">Análisis de Mercado</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contacto</h4>
+                <p>Teléfono: +54 11 4000-0000</p>
+                <p>Email: contacto@nvapropiedades.com</p>
+                <p>Horario: Lun - Vie 9:00 - 18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 NVA Propiedades. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
