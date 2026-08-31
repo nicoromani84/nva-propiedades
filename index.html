@@ -538,6 +538,47 @@
             color: rgba(255, 255, 255, 0.6);
         }
 
+        /* Scroll Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .service-card {
+            animation-delay: var(--delay, 0s);
+        }
+
+        .property-card {
+            animation-delay: var(--delay, 0s);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
@@ -637,8 +678,8 @@
 
     <!-- About Section -->
     <section class="about" id="sobre">
-        <div class="section-accent-bar"></div>
-        <h2>Sobre Nosotros</h2>
+        <div class="section-accent-bar animate-on-scroll"></div>
+        <h2 class="animate-on-scroll">Sobre Nosotros</h2>
         <div class="about-content">
             <div class="about-text">
                 <p>
@@ -659,37 +700,37 @@
 
     <!-- Services Section -->
     <section id="servicios">
-        <div class="section-accent-bar"></div>
-        <h2>Nuestros Servicios</h2>
-        <p class="section-subtitle">Soluciones inmobiliarias completas adaptadas a tus necesidades</p>
+        <div class="section-accent-bar animate-on-scroll"></div>
+        <h2 class="animate-on-scroll">Nuestros Servicios</h2>
+        <p class="section-subtitle animate-on-scroll">Soluciones inmobiliarias completas adaptadas a tus necesidades</p>
 
         <div class="services-grid">
-            <div class="service-card">
+            <div class="service-card animate-on-scroll">
                 <div class="service-icon">🏢</div>
                 <h3>Compra y Venta</h3>
                 <p>Asesoramiento experto en la búsqueda, evaluación y cierre de operaciones de compra y venta de propiedades.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card animate-on-scroll">
                 <div class="service-icon">🔑</div>
                 <h3>Alquiler</h3>
                 <p>Gestión integral del alquiler, desde la búsqueda de inquilinos hasta la administración del inmueble.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card animate-on-scroll">
                 <div class="service-icon">📊</div>
                 <h3>Tasación</h3>
                 <p>Análisis profesional del valor de mercado de tu propiedad para tomar decisiones informadas.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card animate-on-scroll">
                 <div class="service-icon">🔍</div>
                 <h3>Análisis de Mercado</h3>
                 <p>Investigación detallada de tendencias y oportunidades en el mercado inmobiliario de CABA.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card animate-on-scroll">
                 <div class="service-icon">📸</div>
                 <h3>Difusión y Marketing</h3>
                 <p>Estrategias de publicación en múltiples plataformas para maximizar visibilidad de tu propiedad.</p>
             </div>
-            <div class="service-card">
+            <div class="service-card animate-on-scroll">
                 <div class="service-icon">✓</div>
                 <h3>Asistencia Integral</h3>
                 <p>Acompañamiento completo desde el primer contacto hasta el cierre de la operación inmobiliaria.</p>
@@ -699,12 +740,12 @@
 
     <!-- Properties Section -->
     <section class="properties" id="propiedades">
-        <div class="section-accent-bar"></div>
-        <h2>Propiedades Destacadas</h2>
-        <p class="section-subtitle">Selección de las mejores oportunidades disponibles</p>
+        <div class="section-accent-bar animate-on-scroll"></div>
+        <h2 class="animate-on-scroll">Propiedades Destacadas</h2>
+        <p class="section-subtitle animate-on-scroll">Selección de las mejores oportunidades disponibles</p>
 
         <div class="properties-grid">
-            <div class="property-card">
+            <div class="property-card animate-on-scroll">
                 <div class="property-image">
                     <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600&h=250&fit=crop" alt="Departamento en Recoleta">
                 </div>
@@ -716,7 +757,7 @@
             </div>
             <div class="property-card">
                 <div class="property-image">
-                    <img src="https://images.unsplash.com/photo-1570129477492-45a003537e1f?w=600&h=250&fit=crop" alt="Casa en San Telmo">
+                    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&h=250&fit=crop" alt="Casa en San Telmo">
                 </div>
                 <div class="property-info">
                     <span class="property-type">ALQUILER</span>
@@ -739,9 +780,9 @@
 
     <!-- Contact Section -->
     <section class="contact" id="contacto">
-        <div class="section-accent-bar"></div>
-        <h2>Contáctanos</h2>
-        <p class="section-subtitle">Iniciemos juntos tu operación inmobiliaria</p>
+        <div class="section-accent-bar animate-on-scroll"></div>
+        <h2 class="animate-on-scroll">Contáctanos</h2>
+        <p class="section-subtitle animate-on-scroll">Iniciemos juntos tu operación inmobiliaria</p>
 
         <div class="contact-container">
             <form>
@@ -798,6 +839,7 @@
     </footer>
 
     <script>
+        // Menu hamburguesa
         const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
 
@@ -811,6 +853,25 @@
                 menuToggle.classList.remove('active');
                 mobileMenu.classList.remove('active');
             });
+        });
+
+        // Animaciones al scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
         });
     </script>
 </body>
