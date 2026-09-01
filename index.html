@@ -75,19 +75,21 @@
         header {
             background: var(--text-light);
             border-bottom: 1px solid var(--border-color);
-            padding: 1.5rem 2rem;
+            padding: 1.2rem 2rem;
             position: relative;
             z-index: 100;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+            transition: all 0.3s ease;
         }
 
         @media (min-width: 769px) {
             header {
                 position: sticky;
                 top: 0;
-                background: rgba(255, 255, 255, 0.95);
-                backdrop-filter: blur(10px);
-                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(20px);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+                padding: 1rem 2rem;
             }
         }
 
@@ -139,11 +141,28 @@
             color: var(--text-dark);
             font-weight: 400;
             font-size: 0.95rem;
-            transition: color 0.3s ease;
+            position: relative;
+            transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            padding-bottom: 2px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         nav a:hover {
-            color: var(--accent-gold);
+            color: var(--text-dark);
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         .menu-toggle {
@@ -175,6 +194,18 @@
             gap: 0;
             padding: 1rem;
             border-bottom: 1px solid var(--border-color);
+            animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         nav.mobile-menu.active {
@@ -184,6 +215,11 @@
         nav.mobile-menu a {
             padding: 0.75rem 0;
             border-bottom: 1px solid var(--border-color);
+            transition: color 0.3s ease;
+        }
+
+        nav.mobile-menu a:hover {
+            color: var(--accent-gold);
         }
 
         nav.mobile-menu a:last-child {
@@ -195,12 +231,12 @@
             color: var(--text-light);
             padding: 0.75rem 1.75rem;
             border: none;
-            border-radius: 3px;
+            border-radius: 6px;
             font-family: 'Lato', sans-serif;
             font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
             display: inline-block;
             letter-spacing: 0.5px;
@@ -209,6 +245,8 @@
         .cta-button:hover {
             background: var(--accent-gold);
             color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(212, 175, 55, 0.2);
         }
 
         /* Hero Section */
