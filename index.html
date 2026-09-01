@@ -864,11 +864,8 @@
         <p class="section-subtitle animate-on-scroll">Iniciemos juntos tu operación inmobiliaria</p>
 
         <div class="contact-container">
-            <form name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/gracias.html">
-                <input type="hidden" name="form-name" value="contacto">
-                <div style="display: none;">
-                    <input name="bot-field">
-                </div>
+            <form name="contacto" method="POST" action="https://formspree.io/f/xyzgvvby" onsubmit="return handleSubmit(event)">
+                <input type="hidden" name="_redirect" value="/gracias.html">
                 <div class="form-group">
                     <label for="nombre">Nombre Completo</label>
                     <input type="text" id="nombre" name="nombre" required>
@@ -928,6 +925,30 @@
     </a>
 
     <script>
+        // Manejo del formulario con Formspree
+        function handleSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    window.location.href = '/gracias.html';
+                } else {
+                    alert('Error al enviar el formulario. Por favor intenta de nuevo.');
+                }
+            }).catch(error => {
+                alert('Error: ' + error);
+            });
+            return false;
+        }
+
         // Menu hamburguesa
         const menuToggle = document.getElementById('menuToggle');
         const mobileMenu = document.getElementById('mobileMenu');
