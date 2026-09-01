@@ -864,7 +864,11 @@
         <p class="section-subtitle animate-on-scroll">Iniciemos juntos tu operación inmobiliaria</p>
 
         <div class="contact-container">
-            <form name="contacto" method="POST" netlify action="/gracias.html">
+            <form name="contacto" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/gracias.html">
+                <input type="hidden" name="form-name" value="contacto">
+                <div style="display: none;">
+                    <input name="bot-field">
+                </div>
                 <div class="form-group">
                     <label for="nombre">Nombre Completo</label>
                     <input type="text" id="nombre" name="nombre" required>
