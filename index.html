@@ -548,6 +548,41 @@
             color: rgba(255, 255, 255, 0.6);
         }
 
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 999;
+            transition: all 0.3s ease;
+            font-size: 1.8rem;
+        }
+
+        .whatsapp-float:hover {
+            background: #20ba5a;
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .whatsapp-float {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 55px;
+                height: 55px;
+                font-size: 1.5rem;
+            }
+        }
+
         /* Scroll Animations */
         @keyframes fadeInUp {
             from {
@@ -847,6 +882,11 @@
             <p>&copy; 2024 NVA Propiedades. Todos los derechos reservados.</p>
         </div>
     </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/541140726799?text=Hola%20NVA%20Propiedades%2C%20me%20interesa%20conocer%20sobre%20sus%20servicios" class="whatsapp-float" title="Contacta por WhatsApp" target="_blank">
+        💬
+    </a>
 
     <script>
         // Menu hamburguesa
