@@ -1,3 +1,5 @@
+import { isAdmin } from "../lib/auth.mjs";
+
 const json = (status, body) =>
   new Response(JSON.stringify(body), {
     status,
@@ -5,9 +7,6 @@ const json = (status, body) =>
   });
 
 export default async (req) => {
-  const password = process.env.ADMIN_PASSWORD;
-  if (req.method !== "POST" || !password) return json(401, { error: "No autorizado" });
-  return req.headers.get("x-admin-password") === password
-    ? json(200, { ok: true })
-    : json(401, { error: "Contraseña incorrecta" });
+  if (req.method !== "POST") return json(405, { error: "Método no permitido" });
+  return isAdmin(req) ? json(200, { ok: true }) : json(401, { error: "Contraseña incorrecta" });
 };

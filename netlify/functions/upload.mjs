@@ -1,4 +1,5 @@
 import { getStore } from "@netlify/blobs";
+import { isAdmin } from "../lib/auth.mjs";
 
 const MAX_BYTES = 5 * 1024 * 1024;
 
@@ -9,10 +10,8 @@ const json = (status, body) =>
   });
 
 export default async (req) => {
-  const password = process.env.ADMIN_PASSWORD;
-  if (req.method !== "POST" || !password || req.headers.get("x-admin-password") !== password) {
-    return json(401, { error: "No autorizado" });
-  }
+  if (req.method !== "POST") return json(405, { error: "Método no permitido" });
+  if (!isAdmin(req)) return json(401, { error: "No autorizado" });
 
   const contentType = req.headers.get("content-type") || "";
   if (!contentType.startsWith("image/")) return json(400, { error: "El archivo debe ser una imagen" });

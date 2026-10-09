@@ -1,4 +1,5 @@
 import { getStore } from "@netlify/blobs";
+import { isAdmin } from "../lib/auth.mjs";
 
 const SEED = [
   {
@@ -40,11 +41,6 @@ const json = (status, body) =>
     status,
     headers: { "content-type": "application/json", "cache-control": "no-store" },
   });
-
-const isAdmin = (req) => {
-  const password = process.env.ADMIN_PASSWORD;
-  return Boolean(password) && req.headers.get("x-admin-password") === password;
-};
 
 export default async (req) => {
   const store = getStore("propiedades");
