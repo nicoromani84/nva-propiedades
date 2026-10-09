@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <title>Admin - NVA Propiedades</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Lato:wght@300;400;700&display=swap">
     <style>
@@ -13,112 +14,80 @@
             --bg-light: #F9F7F4;
             --text-muted: #6B6B6B;
             --border-color: #E8E6E1;
+            --danger: #c0392b;
+            --success: #27ae60;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: var(--bg-light);
-            color: var(--text-muted);
+            color: #2C2C2C;
+            min-height: 100vh;
         }
 
         header {
             background: var(--primary-dark);
             color: var(--text-light);
-            padding: 2rem;
+            padding: 1.5rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-        }
-
-        .logout-btn {
-            background: var(--accent-gold);
-            color: var(--primary-dark);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            opacity: 0.9;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: var(--primary-dark);
-            margin-bottom: 2rem;
-            margin-top: 2rem;
-        }
-
-        .btn-group {
-            display: flex;
             gap: 1rem;
-            margin-bottom: 2rem;
             flex-wrap: wrap;
         }
 
-        .btn {
-            background: var(--primary-dark);
-            color: var(--text-light);
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 4px;
-            cursor: pointer;
+        header h1 { font-family: 'Playfair Display', serif; font-size: 1.6rem; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+
+        h2.section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--primary-dark);
+            margin: 1rem 0 1.5rem;
+        }
+
+        button {
+            font-family: 'Lato', sans-serif;
+            font-size: 0.95rem;
             font-weight: 600;
-            transition: all 0.3s ease;
+            border: none;
+            border-radius: 4px;
+            padding: 0.7rem 1.3rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        button:disabled { opacity: 0.6; cursor: wait; }
+
+        .btn-primary { background: var(--primary-dark); color: var(--text-light); }
+        .btn-primary:hover { background: var(--accent-gold); color: var(--primary-dark); }
+        .btn-gold { background: var(--accent-gold); color: var(--primary-dark); }
+        .btn-gold:hover { opacity: 0.9; }
+        .btn-ghost { background: transparent; color: var(--primary-dark); border: 1px solid var(--border-color); }
+        .btn-ghost:hover { border-color: var(--accent-gold); }
+        .btn-danger { background: var(--danger); color: var(--text-light); }
+        .btn-success { background: var(--success); color: var(--text-light); }
+
+        .toolbar { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; }
+
+        .status {
+            display: none;
+            padding: 0.9rem 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
             font-size: 0.95rem;
         }
-
-        .btn:hover {
-            background: var(--accent-gold);
-            color: var(--primary-dark);
-        }
-
-        .btn-secondary {
-            background: var(--text-muted);
-        }
-
-        .btn-danger {
-            background: #e74c3c;
-        }
-
-        .btn-danger:hover {
-            background: #c0392b;
-        }
-
-        .btn-success {
-            background: #27ae60;
-        }
-
-        .btn-success:hover {
-            background: #229954;
-        }
+        .status.show { display: block; }
+        .status.ok { background: #d4edda; color: #155724; }
+        .status.error { background: #f8d7da; color: #721c24; }
+        .status.info { background: #fff3cd; color: #664d03; }
 
         .properties-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
         }
 
         .property-card {
@@ -126,279 +95,146 @@
             border: 1px solid var(--border-color);
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
         }
 
         .property-image {
-            width: 100%;
-            height: 200px;
+            height: 180px;
             background: linear-gradient(135deg, var(--primary-dark), var(--accent-gold));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            color: white;
-            font-size: 3rem;
         }
+        .property-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        .property-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .property-info {
-            padding: 1.5rem;
-        }
-
-        .property-info h3 {
+        .property-info { padding: 1.2rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+        .property-info h3 { font-family: 'Playfair Display', serif; color: var(--primary-dark); font-size: 1.15rem; }
+        .property-type {
+            align-self: flex-start;
+            background: var(--accent-gold);
             color: var(--primary-dark);
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.2rem 0.6rem;
+            border-radius: 2px;
+            letter-spacing: 0.5px;
         }
+        .property-desc { color: var(--text-muted); font-size: 0.9rem; line-height: 1.5; }
+        .property-link { color: var(--accent-gold); font-size: 0.85rem; word-break: break-all; }
 
-        .property-desc {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            line-height: 1.6;
+        .property-actions { display: flex; gap: 0.5rem; margin-top: auto; padding-top: 0.5rem; }
+        .property-actions button { flex: 1; padding: 0.55rem; font-size: 0.85rem; }
+
+        .empty { color: var(--text-muted); padding: 2rem 0; }
+
+        /* Login */
+        #loginScreen { display: flex; min-height: 100vh; align-items: center; justify-content: center; padding: 1rem; }
+        .login-box {
+            background: var(--text-light);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 380px;
         }
+        .login-box h1 { font-family: 'Playfair Display', serif; color: var(--primary-dark); text-align: center; margin-bottom: 1.5rem; }
 
-        .property-link {
-            color: var(--accent-gold);
-            font-size: 0.85rem;
-            word-break: break-all;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        .property-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .property-actions button {
-            flex: 1;
-            padding: 0.5rem;
-            font-size: 0.85rem;
-        }
-
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            inset: 0;
             background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            padding: 1rem;
         }
-
-        .modal.active {
-            display: flex;
-        }
-
+        .modal.active { display: flex; }
         .modal-content {
             background: var(--text-light);
             border-radius: 8px;
             padding: 2rem;
+            width: 100%;
             max-width: 600px;
-            width: 90%;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
+        .modal-content h2 { font-family: 'Playfair Display', serif; color: var(--primary-dark); margin-bottom: 1.5rem; }
 
-        .modal-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: var(--primary-dark);
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--primary-dark);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        input, textarea, select {
+        .form-group { margin-bottom: 1.2rem; }
+        label { display: block; margin-bottom: 0.4rem; color: var(--primary-dark); font-weight: 700; font-size: 0.9rem; }
+        input[type=text], input[type=password], input[type=url], select, textarea {
             width: 100%;
-            padding: 0.875rem;
+            padding: 0.75rem;
             border: 1px solid var(--border-color);
             border-radius: 4px;
             font-family: 'Lato', sans-serif;
             font-size: 0.95rem;
-            color: var(--text-muted);
-            transition: border-color 0.3s ease;
+            color: #2C2C2C;
+            background: #fff;
         }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent-gold); }
+        textarea { resize: vertical; min-height: 110px; }
 
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-            background: rgba(212, 175, 55, 0.05);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .form-actions button {
-            flex: 1;
-        }
-
-        .login-container {
-            max-width: 400px;
-            margin: 5rem auto;
-            background: var(--text-light);
-            padding: 3rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-
-        .login-container h1 {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary-dark);
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .image-preview {
-            width: 100%;
-            max-height: 300px;
-            border-radius: 4px;
-            margin-top: 1rem;
-            display: none;
-        }
-
-        .image-preview.show {
-            display: block;
-        }
-
-        .file-input-wrapper {
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .file-input-wrapper input[type=file] {
-            position: absolute;
-            left: -9999px;
-        }
-
-        .file-input-label {
-            display: block;
-            padding: 0.875rem;
-            background: var(--bg-light);
+        .image-picker {
             border: 2px dashed var(--border-color);
             border-radius: 4px;
+            padding: 1rem;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
             color: var(--text-muted);
+            font-size: 0.9rem;
         }
+        .image-picker:hover { border-color: var(--accent-gold); }
+        #imagePreview { width: 100%; max-height: 260px; object-fit: cover; border-radius: 4px; margin-top: 0.75rem; display: none; }
+        #imagePreview.show { display: block; }
 
-        .file-input-label:hover {
-            border-color: var(--accent-gold);
-            background: rgba(212, 175, 55, 0.05);
-        }
+        .modal-actions { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .modal-actions button { flex: 1; }
 
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 1rem;
-            border-radius: 4px;
-            margin-bottom: 1rem;
-            display: none;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        .export-import {
-            background: var(--bg-light);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-        }
-
-        @media (max-width: 768px) {
-            .properties-grid {
-                grid-template-columns: 1fr;
-            }
-
-            header {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
+        @media (max-width: 600px) {
+            .container { padding: 1rem; }
+            .modal-content { padding: 1.5rem; }
         }
     </style>
 </head>
 <body>
     <div id="loginScreen">
-        <div class="login-container">
-            <h1>🔐 Administración</h1>
+        <div class="login-box">
+            <h1>Administración</h1>
             <div class="form-group">
                 <label for="password">Contraseña</label>
-                <input type="password" id="password" placeholder="Ingresa tu contraseña">
+                <input type="password" id="password" autocomplete="current-password">
             </div>
-            <button class="btn" onclick="login()" style="width: 100%;">Entrar</button>
+            <div id="loginStatus" class="status error"></div>
+            <button class="btn-primary" id="loginBtn" style="width: 100%;">Entrar</button>
         </div>
     </div>
 
     <div id="adminScreen" style="display: none;">
         <header>
-            <h1>🏢 Administración de Propiedades</h1>
-            <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+            <h1>Propiedades</h1>
+            <button class="btn-gold" id="logoutBtn">Cerrar sesión</button>
         </header>
 
         <div class="container">
-            <div class="success-message" id="successMessage">✓ Cambios guardados correctamente</div>
+            <div id="status" class="status"></div>
 
-            <div class="export-import">
-                <h3 style="color: var(--primary-dark); margin-bottom: 1rem;">📥 Importar/Exportar Datos</h3>
-                <div class="btn-group">
-                    <button class="btn btn-secondary" onclick="exportData()">📤 Descargar JSON</button>
-                    <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">📥 Cargar JSON</button>
-                    <input type="file" id="importFile" style="display: none;" accept=".json" onchange="importData(event)">
-                </div>
+            <div class="toolbar">
+                <button class="btn-success" id="addBtn">+ Agregar propiedad</button>
+                <a href="/" target="_blank" style="color: var(--primary-dark); font-size: 0.9rem;">Ver sitio →</a>
             </div>
 
-            <div class="btn-group">
-                <button class="btn btn-success" onclick="openModal()">+ Agregar Propiedad</button>
-            </div>
-
-            <h2 class="section-title">Propiedades</h2>
-
+            <h2 class="section-title">Propiedades publicadas</h2>
             <div class="properties-grid" id="propertiesGrid"></div>
         </div>
     </div>
 
-    <!-- Modal para editar/crear propiedad -->
     <div class="modal" id="propertyModal">
         <div class="modal-content">
-            <h2 class="modal-title" id="modalTitle">Nueva Propiedad</h2>
+            <h2 id="modalTitle">Nueva propiedad</h2>
 
             <div class="form-group">
-                <label for="propertyType">Tipo</label>
+                <label for="propertyType">Operación</label>
                 <select id="propertyType">
                     <option value="VENTA">Venta</option>
                     <option value="ALQUILER">Alquiler</option>
@@ -412,227 +248,262 @@
 
             <div class="form-group">
                 <label for="propertyDesc">Descripción</label>
-                <textarea id="propertyDesc" placeholder="Descripción de la propiedad..."></textarea>
+                <textarea id="propertyDesc" placeholder="Resumen de la propiedad..."></textarea>
             </div>
 
             <div class="form-group">
-                <label for="propertyLink">Link</label>
+                <label for="propertyLink">Link (publicación original)</label>
                 <input type="url" id="propertyLink" placeholder="https://...">
             </div>
 
             <div class="form-group">
-                <label>Foto</label>
-                <div class="file-input-wrapper">
-                    <input type="file" id="propertyImage" accept="image/*" onchange="previewImage()">
-                    <label for="propertyImage" class="file-input-label">
-                        📸 Haz clic o arrastra una imagen aquí
-                    </label>
-                </div>
-                <img id="imagePreview" class="image-preview">
+                <label>Foto principal</label>
+                <label class="image-picker" for="imageFile">
+                    Hacé clic para elegir una imagen (se optimiza automáticamente)
+                </label>
+                <input type="file" id="imageFile" accept="image/*" style="display: none;">
+                <img id="imagePreview" alt="Vista previa">
             </div>
 
-            <div class="form-actions">
-                <button class="btn btn-danger" onclick="closeModal()">Cancelar</button>
-                <button class="btn btn-success" onclick="saveProperty()">Guardar</button>
+            <div id="modalStatus" class="status error"></div>
+
+            <div class="modal-actions">
+                <button class="btn-ghost" id="cancelBtn">Cancelar</button>
+                <button class="btn-success" id="saveBtn">Guardar</button>
             </div>
         </div>
     </div>
 
-    <script src="propiedades.js"></script>
     <script>
-        const ADMIN_PASSWORD = "admin123"; // Cambiar en producción
-        let currentPropertyId = null;
-        let properties = [];
+        const API = '/.netlify/functions';
+        const SESSION_KEY = 'nva_admin_password';
 
-        // Cargar propiedades al iniciar
-        function loadProperties() {
-            properties = PropertiesManager.getProperties();
-            renderProperties();
+        let properties = [];
+        let editingId = null;
+        let pendingImageUrl = '';
+
+        const $ = (id) => document.getElementById(id);
+        const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (c) => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+        }[c]));
+
+        function showStatus(el, message, kind) {
+            el.textContent = message;
+            el.className = `status show ${kind}`;
+        }
+        function hideStatus(el) { el.className = 'status'; }
+
+        function getPassword() { return sessionStorage.getItem(SESSION_KEY) || ''; }
+
+        async function login() {
+            const password = $('password').value;
+            const btn = $('loginBtn');
+            btn.disabled = true;
+            try {
+                const res = await fetch(`${API}/login`, { method: 'POST', headers: { 'x-admin-password': password } });
+                if (!res.ok) {
+                    showStatus($('loginStatus'), 'Contraseña incorrecta', 'error');
+                    return;
+                }
+                sessionStorage.setItem(SESSION_KEY, password);
+                $('password').value = '';
+                hideStatus($('loginStatus'));
+                showAdmin();
+            } catch {
+                showStatus($('loginStatus'), 'No se pudo conectar con el servidor', 'error');
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem(SESSION_KEY);
+            $('adminScreen').style.display = 'none';
+            $('loginScreen').style.display = 'flex';
+        }
+
+        async function showAdmin() {
+            $('loginScreen').style.display = 'none';
+            $('adminScreen').style.display = 'block';
+            await loadProperties();
+        }
+
+        async function loadProperties() {
+            try {
+                const res = await fetch(`${API}/properties`, { cache: 'no-store' });
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                properties = await res.json();
+                renderProperties();
+            } catch (err) {
+                showStatus($('status'), 'No se pudieron cargar las propiedades. Revisá la conexión y recargá la página.', 'error');
+            }
         }
 
         function renderProperties() {
-            const grid = document.getElementById('propertiesGrid');
-            grid.innerHTML = properties.map(prop => `
+            const grid = $('propertiesGrid');
+            if (!properties.length) {
+                grid.innerHTML = '<p class="empty">No hay propiedades cargadas.</p>';
+                return;
+            }
+            grid.innerHTML = properties.map((p) => `
                 <div class="property-card">
                     <div class="property-image">
-                        <img src="${prop.image}" alt="${prop.title}" onerror="this.style.display='none'">
+                        ${p.image ? `<img src="${escapeHtml(p.image)}" alt="${escapeHtml(p.title)}" onerror="this.style.display='none'">` : ''}
                     </div>
                     <div class="property-info">
-                        <span style="color: var(--accent-gold); font-size: 0.8rem; font-weight: 600;">📌 ${prop.type}</span>
-                        <h3>${prop.title}</h3>
-                        <p class="property-desc">${prop.desc}</p>
-                        <a href="${prop.link}" target="_blank" class="property-link">Ver más →</a>
+                        <span class="property-type">${escapeHtml(p.type)}</span>
+                        <h3>${escapeHtml(p.title)}</h3>
+                        <p class="property-desc">${escapeHtml(p.desc)}</p>
+                        <a class="property-link" href="${escapeHtml(p.link)}" target="_blank" rel="noopener">${escapeHtml(p.link)}</a>
                         <div class="property-actions">
-                            <button class="btn" onclick="editProperty(${prop.id})">✏️ Editar</button>
-                            <button class="btn btn-danger" onclick="deleteProperty(${prop.id})">🗑️ Eliminar</button>
+                            <button class="btn-primary" data-edit="${escapeHtml(p.id)}">Editar</button>
+                            <button class="btn-danger" data-delete="${escapeHtml(p.id)}">Eliminar</button>
                         </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        function login() {
-            const password = document.getElementById('password').value;
-            if (password === ADMIN_PASSWORD) {
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('adminScreen').style.display = 'block';
-                loadProperties();
-            } else {
-                alert('Contraseña incorrecta');
-                document.getElementById('password').value = '';
-            }
-        }
-
-        function logout() {
-            document.getElementById('loginScreen').style.display = 'block';
-            document.getElementById('adminScreen').style.display = 'none';
-            document.getElementById('password').value = '';
-        }
-
-        function openModal() {
-            currentPropertyId = null;
-            document.getElementById('modalTitle').textContent = 'Nueva Propiedad';
-            document.getElementById('propertyType').value = 'VENTA';
-            document.getElementById('propertyTitle').value = '';
-            document.getElementById('propertyDesc').value = '';
-            document.getElementById('propertyLink').value = '';
-            document.getElementById('propertyImage').value = '';
-            document.getElementById('imagePreview').classList.remove('show');
-            document.getElementById('propertyModal').classList.add('active');
+        function openModal(property) {
+            editingId = property ? property.id : null;
+            pendingImageUrl = property ? property.image : '';
+            $('modalTitle').textContent = property ? 'Editar propiedad' : 'Nueva propiedad';
+            $('propertyType').value = property ? property.type : 'VENTA';
+            $('propertyTitle').value = property ? property.title : '';
+            $('propertyDesc').value = property ? property.desc : '';
+            $('propertyLink').value = property ? property.link : '';
+            $('imageFile').value = '';
+            const preview = $('imagePreview');
+            preview.src = pendingImageUrl || '';
+            preview.classList.toggle('show', Boolean(pendingImageUrl));
+            hideStatus($('modalStatus'));
+            $('propertyModal').classList.add('active');
         }
 
         function closeModal() {
-            document.getElementById('propertyModal').classList.remove('active');
+            $('propertyModal').classList.remove('active');
         }
 
-        function editProperty(id) {
-            const prop = properties.find(p => p.id === id);
-            if (prop) {
-                currentPropertyId = id;
-                document.getElementById('modalTitle').textContent = 'Editar Propiedad';
-                document.getElementById('propertyType').value = prop.type;
-                document.getElementById('propertyTitle').value = prop.title;
-                document.getElementById('propertyDesc').value = prop.desc;
-                document.getElementById('propertyLink').value = prop.link;
-                const preview = document.getElementById('imagePreview');
-                preview.src = prop.image;
-                preview.classList.add('show');
-                document.getElementById('propertyModal').classList.add('active');
-            }
+        function resizeImage(file, maxSize = 1600) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => {
+                    const scale = Math.min(1, maxSize / Math.max(img.width, img.height));
+                    const canvas = document.createElement('canvas');
+                    canvas.width = Math.round(img.width * scale);
+                    canvas.height = Math.round(img.height * scale);
+                    canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+                    canvas.toBlob((blob) => (blob ? resolve(blob) : reject(new Error('No se pudo procesar la imagen'))), 'image/jpeg', 0.85);
+                    URL.revokeObjectURL(img.src);
+                };
+                img.onerror = () => reject(new Error('El archivo no es una imagen válida'));
+                img.src = URL.createObjectURL(file);
+            });
         }
 
-        function deleteProperty(id) {
-            if (confirm('¿Estás seguro de que quieres eliminar esta propiedad?')) {
-                properties = properties.filter(p => p.id !== id);
-                saveProperties();
-            }
-        }
-
-        function previewImage() {
-            const input = document.getElementById('propertyImage');
-            const preview = document.getElementById('imagePreview');
-            const reader = new FileReader();
-
-            reader.onload = (e) => {
-                preview.src = e.target.result;
-                preview.classList.add('show');
-            };
-
-            if (input.files[0]) {
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        function saveProperty() {
-            const title = document.getElementById('propertyTitle').value.trim();
-            const desc = document.getElementById('propertyDesc').value.trim();
-            const link = document.getElementById('propertyLink').value.trim();
-            const type = document.getElementById('propertyType').value;
-            const image = document.getElementById('imagePreview').src;
-
-            if (!title || !desc || !link || !image) {
-                alert('Por favor completa todos los campos');
-                return;
-            }
-
-            if (currentPropertyId) {
-                const prop = properties.find(p => p.id === currentPropertyId);
-                if (prop) {
-                    prop.type = type;
-                    prop.title = title;
-                    prop.desc = desc;
-                    prop.link = link;
-                    prop.image = image;
-                }
-            } else {
-                const newId = Math.max(...properties.map(p => p.id), 0) + 1;
-                properties.push({
-                    id: newId,
-                    type,
-                    title,
-                    desc,
-                    link,
-                    image
+        async function onImageSelected() {
+            const file = $('imageFile').files[0];
+            if (!file) return;
+            const modalStatus = $('modalStatus');
+            showStatus(modalStatus, 'Subiendo imagen...', 'info');
+            $('saveBtn').disabled = true;
+            try {
+                const blob = await resizeImage(file);
+                const res = await fetch(`${API}/upload`, {
+                    method: 'POST',
+                    headers: { 'x-admin-password': getPassword(), 'content-type': 'image/jpeg' },
+                    body: blob,
                 });
+                const data = await res.json().catch(() => ({}));
+                if (!res.ok) throw new Error(data.error || `Error ${res.status}`);
+                pendingImageUrl = data.url;
+                $('imagePreview').src = data.url;
+                $('imagePreview').classList.add('show');
+                hideStatus(modalStatus);
+            } catch (err) {
+                showStatus(modalStatus, `No se pudo subir la imagen: ${err.message}`, 'error');
+                $('imageFile').value = '';
+            } finally {
+                $('saveBtn').disabled = false;
             }
-
-            saveProperties();
-            closeModal();
-            showSuccess();
         }
 
-        function saveProperties() {
-            PropertiesManager.saveProperties(properties);
+        async function persist(nextList) {
+            const res = await fetch(`${API}/properties`, {
+                method: 'PUT',
+                headers: { 'content-type': 'application/json', 'x-admin-password': getPassword() },
+                body: JSON.stringify(nextList),
+            });
+            if (res.status === 401) {
+                logout();
+                throw new Error('La sesión expiró. Volvé a ingresar.');
+            }
+            if (!res.ok) throw new Error(`Error ${res.status} al guardar`);
+            properties = nextList;
             renderProperties();
         }
 
-        function showSuccess() {
-            const msg = document.getElementById('successMessage');
-            msg.classList.add('show');
-            setTimeout(() => msg.classList.remove('show'), 2000);
+        async function saveProperty() {
+            const title = $('propertyTitle').value.trim();
+            const desc = $('propertyDesc').value.trim();
+            const link = $('propertyLink').value.trim();
+            const type = $('propertyType').value;
+            const modalStatus = $('modalStatus');
+
+            if (!title || !desc || !link || !pendingImageUrl) {
+                showStatus(modalStatus, 'Completá título, descripción, link y foto.', 'error');
+                return;
+            }
+
+            const next = editingId === null
+                ? [...properties, { id: Date.now(), type, title, desc, link, image: pendingImageUrl }]
+                : properties.map((p) => (p.id === editingId ? { ...p, type, title, desc, link, image: pendingImageUrl } : p));
+
+            $('saveBtn').disabled = true;
+            try {
+                await persist(next);
+                closeModal();
+                showStatus($('status'), 'Cambios guardados. Se ven en el sitio en unos segundos.', 'ok');
+                setTimeout(() => hideStatus($('status')), 4000);
+            } catch (err) {
+                showStatus(modalStatus, err.message, 'error');
+            } finally {
+                $('saveBtn').disabled = false;
+            }
         }
 
-        function exportData() {
-            const dataStr = JSON.stringify(properties, null, 2);
-            const dataBlob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = 'propiedades.json';
-            link.click();
+        async function deleteProperty(id) {
+            const property = properties.find((p) => String(p.id) === String(id));
+            if (!property || !confirm(`¿Eliminar "${property.title}"?`)) return;
+            try {
+                await persist(properties.filter((p) => String(p.id) !== String(id)));
+                showStatus($('status'), 'Propiedad eliminada.', 'ok');
+                setTimeout(() => hideStatus($('status')), 4000);
+            } catch (err) {
+                showStatus($('status'), err.message, 'error');
+            }
         }
 
-        function importData(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+        $('loginBtn').addEventListener('click', login);
+        $('password').addEventListener('keydown', (e) => { if (e.key === 'Enter') login(); });
+        $('logoutBtn').addEventListener('click', logout);
+        $('addBtn').addEventListener('click', () => openModal(null));
+        $('cancelBtn').addEventListener('click', closeModal);
+        $('saveBtn').addEventListener('click', saveProperty);
+        $('imageFile').addEventListener('change', onImageSelected);
+        $('propertyModal').addEventListener('click', (e) => { if (e.target.id === 'propertyModal') closeModal(); });
 
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                try {
-                    const imported = JSON.parse(e.target.result);
-                    if (Array.isArray(imported)) {
-                        properties = imported;
-                        saveProperties();
-                        showSuccess();
-                    } else {
-                        alert('Formato JSON inválido');
-                    }
-                } catch (err) {
-                    alert('Error al leer el archivo: ' + err.message);
-                }
-            };
-            reader.readAsText(file);
-        }
-
-        // Modal click outside
-        document.getElementById('propertyModal').addEventListener('click', (e) => {
-            if (e.target.id === 'propertyModal') closeModal();
+        $('propertiesGrid').addEventListener('click', (e) => {
+            const editId = e.target.dataset.edit;
+            const deleteId = e.target.dataset.delete;
+            if (editId) openModal(properties.find((p) => String(p.id) === String(editId)));
+            if (deleteId) deleteProperty(deleteId);
         });
 
-        // Enter para login
-        document.getElementById('password')?.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') login();
-        });
+        if (getPassword()) {
+            fetch(`${API}/login`, { method: 'POST', headers: { 'x-admin-password': getPassword() } })
+                .then((res) => { if (res.ok) showAdmin(); else logout(); });
+        }
     </script>
 </body>
 </html>
